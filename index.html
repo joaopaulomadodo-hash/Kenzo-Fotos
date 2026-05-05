@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Cam Editor</title>
+    <style>
+        :root {
+            --vintage-bg: #2c2420;
+            --accent: #d4a373;
+            --text: #fefae0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--vintage-bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 { border-bottom: 2px solid var(--accent); }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        #canvas-container {
+            width: 100%;
+            background: #1a1a1a;
+            border: 8px solid #3d3d3d;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            /* O filtro inicial */
+            filter: sepia(0.5) contrast(0.9) brightness(1.1);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: #3d3d3d;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        input[type="file"], button {
+            grid-column: span 2;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: var(--accent);
+            border: none;
+            font-weight: bold;
+            color: var(--vintage-bg);
+            text-transform: uppercase;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label { font-size: 0.8rem; margin-bottom: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>RETRO_EDIT v1.0</h2>
+        
+        <div id="canvas-container">
+            <canvas id="editorCanvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <input type="file" id="upload" accept="image/*">
+            
+            <div class="slider-group">
+                <label>Sépia</label>
+                <input type="range" id="sepia" min="0" max="100" value="50">
+            </div>
+
+            <div class="slider-group">
+                <label>Ruído (Grão)</label>
+                <input type="range" id="contrast" min="50" max="150" value="100">
+            </div>
+
+            <div class="slider-group">
+                <label>Brilho</label>
+                <input type="range" id="brightness" min="50" max="150" value="110">
+            </div>
+
+            <div class="slider-group">
+                <label>Saturação</label>
+                <input type="range" id="saturate" min="0" max="100" value="80">
+            </div>
+
+            <button id="download">Salvar Foto Retrô</button>
+        </div>
+    </div>
+
+    <script>
+        const upload = document.getElementById('upload');
+        const canvas = document.getElementById('editorCanvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('download');
+        
+        // Controles
+        const filters = {
+            sepia: document.getElementById('sepia'),
+            contrast: document.getElementById('contrast'),
+            brightness: document.getElementById('brightness'),
+            saturate: document.getElementById('saturate')
+        };
+
+        let img = new Image();
+
+        upload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                img.onload = () => {
+                    // Ajusta o tamanho do canvas para a imagem original
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    applyFilters();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function applyFilters() {
+            if (!img.src) return;
+
+            // Aplica os filtros CSS ao contexto do canvas antes de desenhar
+            const filterString = `
+                sepia(${filters.sepia.value}%) 
+                contrast(${filters.contrast.value}%) 
+                brightness(${filters.brightness.value}%) 
+                saturate(${filters.saturate.value}%)
+            `;
+            
+            canvas.style.filter = filterString;
+            ctx.filter = filterString; // Filtro para o download
+            ctx.drawImage(img, 0, 0);
+        }
+
+        // Adiciona eventos aos sliders
+        Object.values(filters).forEach(slider => {
+            slider.addEventListener('input', applyFilters);
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'vintage-photo.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
