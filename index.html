@@ -1,182 +1,395 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-MZ" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Cam Editor</title>
-    <style>
-        :root {
-            --vintage-bg: #2c2420;
-            --accent: #d4a373;
-            --text: #fefae0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BetKenzo Premium - Minhas Apostas</title>
 
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: var(--vintage-bg);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            margin: 0;
-        }
-
-        h2 { border-bottom: 2px solid var(--accent); }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        #canvas-container {
-            width: 100%;
-            background: #1a1a1a;
-            border: 8px solid #3d3d3d;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            /* O filtro inicial */
-            filter: sepia(0.5) contrast(0.9) brightness(1.1);
-        }
-
-        .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            background: #3d3d3d;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        input[type="file"], button {
-            grid-column: span 2;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        button {
-            background-color: var(--accent);
-            border: none;
-            font-weight: bold;
-            color: var(--vintage-bg);
-            text-transform: uppercase;
-        }
-
-        .slider-group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        label { font-size: 0.8rem; margin-bottom: 5px; }
-
-    </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #070b17;
+      color: white;
+      overflow-x: hidden;
+    }
+    .neon {
+      color: #39ff14;
+      text-shadow: 0 0 8px #39ff14;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card {
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+    }
+    .gradient {
+      background: linear-gradient(135deg, #39ff14, #9c00ff);
+    }
+    .btn {
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #39ff14;
+    }
+    .hero-bg {
+      background: radial-gradient(circle at top left, #39ff1440, transparent 30%),
+                  radial-gradient(circle at bottom right, #9c00ff50, transparent 30%),
+                  #070b17;
+    }
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: red;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+    .modal {
+      transition: 0.2s ease;
+    }
+    .modal.hidden {
+      display: none;
+    }
+  </style>
 </head>
-<body>
+<body class="hero-bg min-h-screen pb-28">
 
-    <div class="container">
-        <h2>RETRO_EDIT v1.0</h2>
-        
-        <div id="canvas-container">
-            <canvas id="editorCanvas"></canvas>
+<!-- ========== MODAL LOGIN ========== -->
+<div id="loginModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+  <div class="glass rounded-2xl p-8 w-full max-w-md mx-4">
+    <h2 class="text-3xl font-black neon mb-6">Iniciar Sessão</h2>
+    <input type="text" id="loginUser" placeholder="Usuário" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4 text-white">
+    <input type="password" id="loginPass" placeholder="Palavra-passe" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-6 text-white">
+    <button onclick="login()" class="gradient w-full py-3 rounded-xl font-black text-black">Entrar</button>
+    <p class="text-center text-gray-400 mt-4 text-sm">Não tem conta? <button onclick="toggleModal('loginModal', false); toggleModal('signupModal', true)" class="text-green-400">Criar conta</button></p>
+    <button onclick="toggleModal('loginModal', false)" class="mt-4 text-gray-400 underline w-full">Fechar</button>
+  </div>
+</div>
+
+<!-- ========== MODAL REGISTO ========== -->
+<div id="signupModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+  <div class="glass rounded-2xl p-8 w-full max-w-md mx-4">
+    <h2 class="text-3xl font-black neon mb-6">Criar Conta</h2>
+    <input type="text" id="signupName" placeholder="Nome completo" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
+    <input type="text" id="signupUser" placeholder="Usuário" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
+    <input type="email" id="signupEmail" placeholder="Email" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
+    <input type="password" id="signupPass" placeholder="Palavra-passe" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-6">
+    <button onclick="signup()" class="gradient w-full py-3 rounded-xl font-black text-black">Registrar</button>
+    <p class="text-center text-gray-400 mt-4 text-sm">Já tem conta? <button onclick="toggleModal('signupModal', false); toggleModal('loginModal', true)" class="text-green-400">Iniciar sessão</button></p>
+    <button onclick="toggleModal('signupModal', false)" class="mt-4 text-gray-400 underline w-full">Fechar</button>
+  </div>
+</div>
+
+<!-- ========== HEADER (com login / registo no topo) ========== -->
+<header class="fixed top-0 left-0 w-full z-50 glass">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-xl gradient flex items-center justify-center font-black text-black text-xl">BK</div>
+      <div>
+        <h1 class="text-2xl font-black neon" style="font-family: Orbitron;">BETKENZO</h1>
+        <div class="flex items-center gap-2 text-xs text-green-400">
+          <div class="live-dot"></div>
+          AO VIVO
         </div>
-
-        <div class="controls">
-            <input type="file" id="upload" accept="image/*">
-            
-            <div class="slider-group">
-                <label>Sépia</label>
-                <input type="range" id="sepia" min="0" max="100" value="50">
-            </div>
-
-            <div class="slider-group">
-                <label>Ruído (Grão)</label>
-                <input type="range" id="contrast" min="50" max="150" value="100">
-            </div>
-
-            <div class="slider-group">
-                <label>Brilho</label>
-                <input type="range" id="brightness" min="50" max="150" value="110">
-            </div>
-
-            <div class="slider-group">
-                <label>Saturação</label>
-                <input type="range" id="saturate" min="0" max="100" value="80">
-            </div>
-
-            <button id="download">Salvar Foto Retrô</button>
-        </div>
+      </div>
     </div>
 
-    <script>
-        const upload = document.getElementById('upload');
-        const canvas = document.getElementById('editorCanvas');
-        const ctx = canvas.getContext('2d');
-        const downloadBtn = document.getElementById('download');
-        
-        // Controles
-        const filters = {
-            sepia: document.getElementById('sepia'),
-            contrast: document.getElementById('contrast'),
-            brightness: document.getElementById('brightness'),
-            saturate: document.getElementById('saturate')
-        };
+    <div class="flex items-center gap-4 flex-wrap">
+      <!-- Saldo do utilizador (simulado) -->
+      <div class="glass px-4 py-2 rounded-xl glow">
+        <p class="text-xs text-gray-400">Saldo</p>
+        <h2 class="font-black text-green-400" id="saldoDisplay">1,250.00 MT</h2>
+      </div>
 
-        let img = new Image();
+      <!-- Botões de login/registo (topo) -->
+      <div id="authTopButtons" class="flex gap-2">
+        <button onclick="toggleModal('loginModal', true)" class="btn glass px-5 py-2 rounded-xl text-sm font-bold">Iniciar Sessão</button>
+        <button onclick="toggleModal('signupModal', true)" class="btn gradient px-5 py-2 rounded-xl text-sm font-black text-black">Criar Conta</button>
+      </div>
+      <div id="userTopInfo" class="hidden items-center gap-2">
+        <span class="neon text-sm" id="usernameTop"></span>
+        <button onclick="logout()" class="text-xs text-red-400 hover:text-red-300">Sair</button>
+      </div>
+    </div>
+  </div>
+</header>
 
-        upload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            const reader = new FileReader();
+<!-- ========== HERO (original) ========== -->
+<section class="pt-32 pb-10 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="glass rounded-3xl p-8 md:p-14 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-72 h-72 bg-green-500/10 rounded-full blur-3xl"></div>
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="bg-green-500 text-black px-4 py-1 rounded-full text-sm font-bold">PREMIUM PLATFORM</span>
+          <h1 class="text-5xl md:text-7xl font-black mt-5 leading-tight">
+            ENTRE NA
+            <span class="neon">ARENA</span>
+            DOS
+            CAMPEÕES
+          </h1>
+          <p class="text-gray-400 mt-6 text-lg">
+            Plataforma avançada de apostas desportivas, Aviator, Casino Online e pagamentos móveis em Moçambique.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <button class="btn gradient px-8 py-4 rounded-2xl font-black text-black">JOGAR AGORA</button>
+            <button class="btn glass px-8 py-4 rounded-2xl font-bold">VER RANKING</button>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="glass rounded-3xl p-6 w-full max-w-md glow">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl w-full h-72 object-cover">
+            <div class="mt-5">
+              <div class="flex justify-between items-center">
+                <div>
+                  <h2 class="font-black text-2xl neon">AVIATOR</h2>
+                  <p class="text-gray-400 text-sm">Multiplicador ao vivo</p>
+                </div>
+                <div class="bg-green-500 text-black px-4 py-2 rounded-xl font-black">15.22x</div>
+              </div>
+              <button class="btn w-full mt-6 gradient py-4 rounded-2xl text-black font-black">ENTRAR NO JOGO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            reader.onload = (event) => {
-                img.onload = () => {
-                    // Ajusta o tamanho do canvas para a imagem original
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    applyFilters();
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        });
+<!-- ========== SECÇÃO: MINHAS APOSTAS ========== -->
+<section class="px-4 py-12 max-w-7xl mx-auto">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="w-1 h-10 bg-green-500 rounded-full"></div>
+    <h2 class="text-3xl font-black neon">MINHAS APOSTAS</h2>
+  </div>
 
-        function applyFilters() {
-            if (!img.src) return;
+  <!-- Lista de apostas (mock) -->
+  <div id="betsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Os cards serão preenchidos dinamicamente via JS -->
+  </div>
 
-            // Aplica os filtros CSS ao contexto do canvas antes de desenhar
-            const filterString = `
-                sepia(${filters.sepia.value}%) 
-                contrast(${filters.contrast.value}%) 
-                brightness(${filters.brightness.value}%) 
-                saturate(${filters.saturate.value}%)
-            `;
-            
-            canvas.style.filter = filterString;
-            ctx.filter = filterString; // Filtro para o download
-            ctx.drawImage(img, 0, 0);
-        }
+  <!-- Mensagem quando não há apostas ou utilizador deslogado -->
+  <div id="noBetsMessage" class="glass rounded-2xl p-10 text-center">
+    <p class="text-gray-400 text-lg">🔒 Faça login para ver as suas apostas e histórico.</p>
+  </div>
+</section>
 
-        // Adiciona eventos aos sliders
-        Object.values(filters).forEach(slider => {
-            slider.addEventListener('input', applyFilters);
-        });
+<!-- ========== RODAPÉ (com login/registo e minhas apostas) ========== -->
+<footer class="glass mt-16 py-8 px-4">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg gradient flex items-center justify-center text-black font-bold">BK</div>
+        <span class="neon font-black">BetKenzo</span>
+      </div>
+      <p class="text-xs text-gray-400">© 2025 · Apostas com responsabilidade</p>
+    </div>
 
-        downloadBtn.addEventListener('click', () => {
-            const link = document.createElement('a');
-            link.download = 'vintage-photo.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        });
-    </script>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-bold text-green-400">Acesso rápido</h4>
+      <div id="authFooterButtons" class="flex gap-4">
+        <button onclick="toggleModal('loginModal', true)" class="text-sm text-gray-300 hover:text-green-400">Iniciar Sessão</button>
+        <button onclick="toggleModal('signupModal', true)" class="text-sm text-gray-300 hover:text-green-400">Criar Conta</button>
+      </div>
+      <div id="userFooterInfo" class="hidden text-sm text-gray-300">
+        Logado como <span id="usernameFooter" class="neon"></span> · <button onclick="logout()" class="text-red-400">Sair</button>
+      </div>
+      <button onclick="scrollToSection('betsContainer')" class="text-sm text-gray-300 hover:text-green-400 text-left">📋 Minhas Apostas</button>
+    </div>
+
+    <div class="space-y-1">
+      <h4 class="font-bold text-green-400">Suporte</h4>
+      <p class="text-xs text-gray-400">+258 84 123 4567</p>
+      <p class="text-xs text-gray-400">apoio@betkenzo.co.mz</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // DADOS MOCK DE APOSTAS (por utilizador)
+  const betsDB = {
+    "kensai": [
+      { id: 1, evento: "SL Benfica vs Porto", aposta: "Vitória Benfica", valor: "500 MT", odd: "2.15", possivelGanho: "1075 MT", status: "🏆 Ganha", cor: "text-green-400" },
+      { id: 2, evento: "Aviator", aposta: "Multiplicador > 5x", valor: "200 MT", odd: "3.40", possivelGanho: "680 MT", status: "⏳ Pendente", cor: "text-yellow-400" },
+      { id: 3, evento: "Ferrari vs Red Bull", aposta: "Verstappen Pódio", valor: "300 MT", odd: "1.85", possivelGanho: "555 MT", status: "❌ Perdida", cor: "text-red-400" }
+    ],
+    "demo": [
+      { id: 4, evento: "NBA Lakers vs Warriors", aposta: "LeBron +25 pts", valor: "100 MT", odd: "2.50", possivelGanho: "250 MT", status: "⏳ Pendente", cor: "text-yellow-400" }
+    ]
+  };
+
+  let currentUser = null;   // { username, saldo? }
+
+  // Função para actualizar interface conforme login
+  function updateUIForUser() {
+    const isLogged = currentUser !== null;
+    const authTop = document.getElementById('authTopButtons');
+    const userTop = document.getElementById('userTopInfo');
+    const authFoot = document.getElementById('authFooterButtons');
+    const userFoot = document.getElementById('userFooterInfo');
+    const saldoSpan = document.getElementById('saldoDisplay');
+
+    if (isLogged) {
+      authTop.classList.add('hidden');
+      userTop.classList.remove('hidden');
+      authFoot.classList.add('hidden');
+      userFoot.classList.remove('hidden');
+      document.getElementById('usernameTop').innerText = currentUser.username;
+      document.getElementById('usernameFooter').innerText = currentUser.username;
+      // Simular saldo diferente para utilizador logado
+      if (currentUser.username === "kensai") saldoSpan.innerText = "3,420.00 MT";
+      else if (currentUser.username === "demo") saldoSpan.innerText = "500.00 MT";
+      else saldoSpan.innerText = "1,250.00 MT";
+    } else {
+      authTop.classList.remove('hidden');
+      userTop.classList.add('hidden');
+      authFoot.classList.remove('hidden');
+      userFoot.classList.add('hidden');
+      saldoSpan.innerText = "1,250.00 MT";
+    }
+    renderBets();  // recarregar apostas
+  }
+
+  // Renderizar as apostas do utilizador actual
+  function renderBets() {
+    const container = document.getElementById('betsContainer');
+    const noMsg = document.getElementById('noBetsMessage');
+    if (!currentUser) {
+      container.innerHTML = '';
+      noMsg.classList.remove('hidden');
+      return;
+    }
+    const userBets = betsDB[currentUser.username];
+    if (!userBets || userBets.length === 0) {
+      container.innerHTML = '';
+      noMsg.classList.remove('hidden');
+      noMsg.innerHTML = '<div class="glass rounded-2xl p-10 text-center"><p class="text-gray-400 text-lg">📭 Nenhuma aposta registada ainda. Faça a sua primeira aposta!</p></div>';
+      return;
+    }
+    noMsg.classList.add('hidden');
+    container.innerHTML = userBets.map(bet => `
+      <div class="glass rounded-2xl p-5 card">
+        <div class="flex justify-between items-start">
+          <h3 class="font-bold text-white text-lg">${bet.evento}</h3>
+          <span class="${bet.cor} font-black">${bet.status}</span>
+        </div>
+        <p class="text-sm text-gray-300 mt-2">Aposta: ${bet.aposta}</p>
+        <div class="flex justify-between mt-3 text-sm">
+          <span class="text-gray-400">Valor: ${bet.valor}</span>
+          <span class="text-green-300">Odd: ${bet.odd}</span>
+        </div>
+        <div class="mt-2 border-t border-white/10 pt-2 flex justify-between">
+          <span class="text-gray-300">Possível ganho:</span>
+          <span class="neon font-bold">${bet.possivelGanho}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Funções de login/signup (simulação)
+  function login() {
+    const user = document.getElementById('loginUser').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
+    if (!user || !pass) {
+      alert("Preencha usuário e palavra-passe.");
+      return;
+    }
+    // Mock: aceita "kensai" ou "demo" com qualquer password (para demonstração)
+    if (user === "kensai" || user === "demo") {
+      currentUser = { username: user };
+      updateUIForUser();
+      toggleModal('loginModal', false);
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+      showToast(`Bem-vindo de volta, ${user}!`);
+    } else {
+      alert("Credenciais inválidas. Utilize 'kensai' ou 'demo' para teste.");
+    }
+  }
+
+  function signup() {
+    const nome = document.getElementById('signupName').value.trim();
+    const user = document.getElementById('signupUser').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pass = document.getElementById('signupPass').value.trim();
+    if (!nome || !user || !email || !pass) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+    if (user === "kensai" || user === "demo") {
+      alert("Nome de usuário já existe. Escolha outro.");
+      return;
+    }
+    // Criar novo utilizador (mock) - armazenamos em betsDB? Podemos criar entrada vazia
+    if (!betsDB[user]) {
+      betsDB[user] = [];
+    }
+    currentUser = { username: user };
+    updateUIForUser();
+    toggleModal('signupModal', false);
+    showToast(`Conta criada com sucesso! Bem-vindo, ${user}`);
+    // Limpar campos
+    document.getElementById('signupName').value = '';
+    document.getElementById('signupUser').value = '';
+    document.getElementById('signupEmail').value = '';
+    document.getElementById('signupPass').value = '';
+  }
+
+  function logout() {
+    currentUser = null;
+    updateUIForUser();
+    showToast("Sessão encerrada.");
+  }
+
+  function toggleModal(modalId, show) {
+    const modal = document.getElementById(modalId);
+    if (show) modal.classList.remove('hidden');
+    else modal.classList.add('hidden');
+  }
+
+  function showToast(msg) {
+    // Toast simples
+    let toast = document.createElement('div');
+    toast.innerText = msg;
+    toast.className = 'fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-green-600 text-black px-6 py-3 rounded-xl font-bold z-50 glass';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
+
+  function scrollToSection(elementId) {
+    const el = document.getElementById(elementId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Inicializar
+  updateUIForUser();
+
+  // Fechar modais ao clicar fora (opcional)
+  window.onclick = function(e) {
+    const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
+    if (e.target === loginModal) toggleModal('loginModal', false);
+    if (e.target === signupModal) toggleModal('signupModal', false);
+  };
+</script>
 </body>
 </html>
