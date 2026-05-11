@@ -1,395 +1,325 @@
 <!DOCTYPE html>
-<html lang="pt-MZ" class="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BetKenzo Premium - Minhas Apostas</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #070b17;
-      color: white;
-      overflow-x: hidden;
-    }
-    .neon {
-      color: #39ff14;
-      text-shadow: 0 0 8px #39ff14;
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .card {
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
-    }
-    .gradient {
-      background: linear-gradient(135deg, #39ff14, #9c00ff);
-    }
-    .btn {
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #39ff14;
-    }
-    .hero-bg {
-      background: radial-gradient(circle at top left, #39ff1440, transparent 30%),
-                  radial-gradient(circle at bottom right, #9c00ff50, transparent 30%),
-                  #070b17;
-    }
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: red;
-      animation: pulse 1s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.2; }
-      100% { opacity: 1; }
-    }
-    .modal {
-      transition: 0.2s ease;
-    }
-    .modal.hidden {
-      display: none;
-    }
-  </style>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CYBER_STAKE | Deposit Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#2d3828",
+                      "on-surface-variant": "#baccb0",
+                      "surface-tint": "#2ae500",
+                      "on-primary-fixed-variant": "#095300",
+                      "surface-container-highest": "#2d3828",
+                      "inverse-surface": "#dae6d0",
+                      "inverse-on-surface": "#293324",
+                      "primary-fixed": "#79ff5b",
+                      "tertiary-fixed": "#ffdad6",
+                      "on-secondary-fixed-variant": "#6a00b0",
+                      "surface-container": "#182214",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary": "#442927",
+                      "on-primary-fixed": "#022100",
+                      "on-primary": "#053900",
+                      "surface-container-lowest": "#071105",
+                      "secondary-fixed-dim": "#dfb7ff",
+                      "on-secondary": "#4b007e",
+                      "primary": "#efffe3",
+                      "surface-container-low": "#141e11",
+                      "secondary": "#dfb7ff",
+                      "on-tertiary-container": "#7a5955",
+                      "on-primary-container": "#107100",
+                      "tertiary-fixed-dim": "#e7bdb8",
+                      "surface-bright": "#323c2d",
+                      "surface": "#0c1609",
+                      "on-tertiary-fixed": "#2c1513",
+                      "on-background": "#dae6d0",
+                      "on-tertiary-fixed-variant": "#5d3f3c",
+                      "outline": "#85967c",
+                      "error": "#ffb4ab",
+                      "primary-container": "#39ff14",
+                      "surface-container-high": "#222d1e",
+                      "on-secondary-container": "#f7e6ff",
+                      "tertiary": "#fff8f7",
+                      "secondary-fixed": "#f1daff",
+                      "primary-fixed-dim": "#2ae500",
+                      "on-secondary-fixed": "#2d004f",
+                      "inverse-primary": "#106e00",
+                      "tertiary-container": "#ffd3ce",
+                      "surface-dim": "#0c1609",
+                      "secondary-container": "#9d08ff",
+                      "outline-variant": "#3c4b35",
+                      "on-surface": "#dae6d0",
+                      "on-error": "#690005",
+                      "error-container": "#93000a",
+                      "background": "#0c1609"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "1.5rem",
+                      "lg": "2rem",
+                      "xs": "0.5rem",
+                      "gutter": "1.5rem",
+                      "container-max": "1440px",
+                      "base": "4px",
+                      "xl": "3rem",
+                      "sm": "1rem"
+              },
+              "fontFamily": {
+                      "data-mono": ["Space Mono"],
+                      "headline-lg": ["Orbitron"],
+                      "display-xl": ["Orbitron"],
+                      "headline-md": ["Orbitron"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "data-mono": ["14px", {"lineHeight": "1", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-primary {
+            filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.4));
+        }
+        .glass-panel {
+            background: rgba(24, 34, 20, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .step-active {
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        }
+    </style>
 </head>
-<body class="hero-bg min-h-screen pb-28">
-
-<!-- ========== MODAL LOGIN ========== -->
-<div id="loginModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-  <div class="glass rounded-2xl p-8 w-full max-w-md mx-4">
-    <h2 class="text-3xl font-black neon mb-6">Iniciar Sessão</h2>
-    <input type="text" id="loginUser" placeholder="Usuário" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4 text-white">
-    <input type="password" id="loginPass" placeholder="Palavra-passe" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-6 text-white">
-    <button onclick="login()" class="gradient w-full py-3 rounded-xl font-black text-black">Entrar</button>
-    <p class="text-center text-gray-400 mt-4 text-sm">Não tem conta? <button onclick="toggleModal('loginModal', false); toggleModal('signupModal', true)" class="text-green-400">Criar conta</button></p>
-    <button onclick="toggleModal('loginModal', false)" class="mt-4 text-gray-400 underline w-full">Fechar</button>
-  </div>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface/80 backdrop-blur-xl border-b border-white/10 docked full-width top-0 sticky z-50 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto py-sm">
+<div class="font-display-xl text-display-xl italic tracking-tighter text-primary-container drop-shadow-[0_0_10px_rgba(57,255,20,0.5)]">CYBER_STAKE</div>
+<nav class="hidden md:flex items-center gap-md">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Sports</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Casino</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Live</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Promos</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-on-surface-variant hover:bg-white/5 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-white/5 rounded-full transition-all">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<button class="bg-primary-container text-on-primary-container font-headline-md px-md py-xs rounded hover:scale-95 transition-transform">Deposit</button>
 </div>
-
-<!-- ========== MODAL REGISTO ========== -->
-<div id="signupModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-  <div class="glass rounded-2xl p-8 w-full max-w-md mx-4">
-    <h2 class="text-3xl font-black neon mb-6">Criar Conta</h2>
-    <input type="text" id="signupName" placeholder="Nome completo" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
-    <input type="text" id="signupUser" placeholder="Usuário" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
-    <input type="email" id="signupEmail" placeholder="Email" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-4">
-    <input type="password" id="signupPass" placeholder="Palavra-passe" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 mb-6">
-    <button onclick="signup()" class="gradient w-full py-3 rounded-xl font-black text-black">Registrar</button>
-    <p class="text-center text-gray-400 mt-4 text-sm">Já tem conta? <button onclick="toggleModal('signupModal', false); toggleModal('loginModal', true)" class="text-green-400">Iniciar sessão</button></p>
-    <button onclick="toggleModal('signupModal', false)" class="mt-4 text-gray-400 underline w-full">Fechar</button>
-  </div>
 </div>
-
-<!-- ========== HEADER (com login / registo no topo) ========== -->
-<header class="fixed top-0 left-0 w-full z-50 glass">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-3">
-    <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-xl gradient flex items-center justify-center font-black text-black text-xl">BK</div>
-      <div>
-        <h1 class="text-2xl font-black neon" style="font-family: Orbitron;">BETKENZO</h1>
-        <div class="flex items-center gap-2 text-xs text-green-400">
-          <div class="live-dot"></div>
-          AO VIVO
-        </div>
-      </div>
-    </div>
-
-    <div class="flex items-center gap-4 flex-wrap">
-      <!-- Saldo do utilizador (simulado) -->
-      <div class="glass px-4 py-2 rounded-xl glow">
-        <p class="text-xs text-gray-400">Saldo</p>
-        <h2 class="font-black text-green-400" id="saldoDisplay">1,250.00 MT</h2>
-      </div>
-
-      <!-- Botões de login/registo (topo) -->
-      <div id="authTopButtons" class="flex gap-2">
-        <button onclick="toggleModal('loginModal', true)" class="btn glass px-5 py-2 rounded-xl text-sm font-bold">Iniciar Sessão</button>
-        <button onclick="toggleModal('signupModal', true)" class="btn gradient px-5 py-2 rounded-xl text-sm font-black text-black">Criar Conta</button>
-      </div>
-      <div id="userTopInfo" class="hidden items-center gap-2">
-        <span class="neon text-sm" id="usernameTop"></span>
-        <button onclick="logout()" class="text-xs text-red-400 hover:text-red-300">Sair</button>
-      </div>
-    </div>
-  </div>
 </header>
-
-<!-- ========== HERO (original) ========== -->
-<section class="pt-32 pb-10 px-4">
-  <div class="max-w-7xl mx-auto">
-    <div class="glass rounded-3xl p-8 md:p-14 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-72 h-72 bg-green-500/10 rounded-full blur-3xl"></div>
-      <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <span class="bg-green-500 text-black px-4 py-1 rounded-full text-sm font-bold">PREMIUM PLATFORM</span>
-          <h1 class="text-5xl md:text-7xl font-black mt-5 leading-tight">
-            ENTRE NA
-            <span class="neon">ARENA</span>
-            DOS
-            CAMPEÕES
-          </h1>
-          <p class="text-gray-400 mt-6 text-lg">
-            Plataforma avançada de apostas desportivas, Aviator, Casino Online e pagamentos móveis em Moçambique.
-          </p>
-          <div class="flex flex-wrap gap-4 mt-8">
-            <button class="btn gradient px-8 py-4 rounded-2xl font-black text-black">JOGAR AGORA</button>
-            <button class="btn glass px-8 py-4 rounded-2xl font-bold">VER RANKING</button>
-          </div>
-        </div>
-        <div class="flex justify-center">
-          <div class="glass rounded-3xl p-6 w-full max-w-md glow">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl w-full h-72 object-cover">
-            <div class="mt-5">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h2 class="font-black text-2xl neon">AVIATOR</h2>
-                  <p class="text-gray-400 text-sm">Multiplicador ao vivo</p>
-                </div>
-                <div class="bg-green-500 text-black px-4 py-2 rounded-xl font-black">15.22x</div>
-              </div>
-              <button class="btn w-full mt-6 gradient py-4 rounded-2xl text-black font-black">ENTRAR NO JOGO</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SECÇÃO: MINHAS APOSTAS ========== -->
-<section class="px-4 py-12 max-w-7xl mx-auto">
-  <div class="flex items-center gap-3 mb-8">
-    <div class="w-1 h-10 bg-green-500 rounded-full"></div>
-    <h2 class="text-3xl font-black neon">MINHAS APOSTAS</h2>
-  </div>
-
-  <!-- Lista de apostas (mock) -->
-  <div id="betsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Os cards serão preenchidos dinamicamente via JS -->
-  </div>
-
-  <!-- Mensagem quando não há apostas ou utilizador deslogado -->
-  <div id="noBetsMessage" class="glass rounded-2xl p-10 text-center">
-    <p class="text-gray-400 text-lg">🔒 Faça login para ver as suas apostas e histórico.</p>
-  </div>
-</section>
-
-<!-- ========== RODAPÉ (com login/registo e minhas apostas) ========== -->
-<footer class="glass mt-16 py-8 px-4">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
-    <div class="space-y-2">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg gradient flex items-center justify-center text-black font-bold">BK</div>
-        <span class="neon font-black">BetKenzo</span>
-      </div>
-      <p class="text-xs text-gray-400">© 2025 · Apostas com responsabilidade</p>
-    </div>
-
-    <div class="flex flex-col gap-2">
-      <h4 class="font-bold text-green-400">Acesso rápido</h4>
-      <div id="authFooterButtons" class="flex gap-4">
-        <button onclick="toggleModal('loginModal', true)" class="text-sm text-gray-300 hover:text-green-400">Iniciar Sessão</button>
-        <button onclick="toggleModal('signupModal', true)" class="text-sm text-gray-300 hover:text-green-400">Criar Conta</button>
-      </div>
-      <div id="userFooterInfo" class="hidden text-sm text-gray-300">
-        Logado como <span id="usernameFooter" class="neon"></span> · <button onclick="logout()" class="text-red-400">Sair</button>
-      </div>
-      <button onclick="scrollToSection('betsContainer')" class="text-sm text-gray-300 hover:text-green-400 text-left">📋 Minhas Apostas</button>
-    </div>
-
-    <div class="space-y-1">
-      <h4 class="font-bold text-green-400">Suporte</h4>
-      <p class="text-xs text-gray-400">+258 84 123 4567</p>
-      <p class="text-xs text-gray-400">apoio@betkenzo.co.mz</p>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // DADOS MOCK DE APOSTAS (por utilizador)
-  const betsDB = {
-    "kensai": [
-      { id: 1, evento: "SL Benfica vs Porto", aposta: "Vitória Benfica", valor: "500 MT", odd: "2.15", possivelGanho: "1075 MT", status: "🏆 Ganha", cor: "text-green-400" },
-      { id: 2, evento: "Aviator", aposta: "Multiplicador > 5x", valor: "200 MT", odd: "3.40", possivelGanho: "680 MT", status: "⏳ Pendente", cor: "text-yellow-400" },
-      { id: 3, evento: "Ferrari vs Red Bull", aposta: "Verstappen Pódio", valor: "300 MT", odd: "1.85", possivelGanho: "555 MT", status: "❌ Perdida", cor: "text-red-400" }
-    ],
-    "demo": [
-      { id: 4, evento: "NBA Lakers vs Warriors", aposta: "LeBron +25 pts", valor: "100 MT", odd: "2.50", possivelGanho: "250 MT", status: "⏳ Pendente", cor: "text-yellow-400" }
-    ]
-  };
-
-  let currentUser = null;   // { username, saldo? }
-
-  // Função para actualizar interface conforme login
-  function updateUIForUser() {
-    const isLogged = currentUser !== null;
-    const authTop = document.getElementById('authTopButtons');
-    const userTop = document.getElementById('userTopInfo');
-    const authFoot = document.getElementById('authFooterButtons');
-    const userFoot = document.getElementById('userFooterInfo');
-    const saldoSpan = document.getElementById('saldoDisplay');
-
-    if (isLogged) {
-      authTop.classList.add('hidden');
-      userTop.classList.remove('hidden');
-      authFoot.classList.add('hidden');
-      userFoot.classList.remove('hidden');
-      document.getElementById('usernameTop').innerText = currentUser.username;
-      document.getElementById('usernameFooter').innerText = currentUser.username;
-      // Simular saldo diferente para utilizador logado
-      if (currentUser.username === "kensai") saldoSpan.innerText = "3,420.00 MT";
-      else if (currentUser.username === "demo") saldoSpan.innerText = "500.00 MT";
-      else saldoSpan.innerText = "1,250.00 MT";
-    } else {
-      authTop.classList.remove('hidden');
-      userTop.classList.add('hidden');
-      authFoot.classList.remove('hidden');
-      userFoot.classList.add('hidden');
-      saldoSpan.innerText = "1,250.00 MT";
-    }
-    renderBets();  // recarregar apostas
-  }
-
-  // Renderizar as apostas do utilizador actual
-  function renderBets() {
-    const container = document.getElementById('betsContainer');
-    const noMsg = document.getElementById('noBetsMessage');
-    if (!currentUser) {
-      container.innerHTML = '';
-      noMsg.classList.remove('hidden');
-      return;
-    }
-    const userBets = betsDB[currentUser.username];
-    if (!userBets || userBets.length === 0) {
-      container.innerHTML = '';
-      noMsg.classList.remove('hidden');
-      noMsg.innerHTML = '<div class="glass rounded-2xl p-10 text-center"><p class="text-gray-400 text-lg">📭 Nenhuma aposta registada ainda. Faça a sua primeira aposta!</p></div>';
-      return;
-    }
-    noMsg.classList.add('hidden');
-    container.innerHTML = userBets.map(bet => `
-      <div class="glass rounded-2xl p-5 card">
-        <div class="flex justify-between items-start">
-          <h3 class="font-bold text-white text-lg">${bet.evento}</h3>
-          <span class="${bet.cor} font-black">${bet.status}</span>
-        </div>
-        <p class="text-sm text-gray-300 mt-2">Aposta: ${bet.aposta}</p>
-        <div class="flex justify-between mt-3 text-sm">
-          <span class="text-gray-400">Valor: ${bet.valor}</span>
-          <span class="text-green-300">Odd: ${bet.odd}</span>
-        </div>
-        <div class="mt-2 border-t border-white/10 pt-2 flex justify-between">
-          <span class="text-gray-300">Possível ganho:</span>
-          <span class="neon font-bold">${bet.possivelGanho}</span>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // Funções de login/signup (simulação)
-  function login() {
-    const user = document.getElementById('loginUser').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
-    if (!user || !pass) {
-      alert("Preencha usuário e palavra-passe.");
-      return;
-    }
-    // Mock: aceita "kensai" ou "demo" com qualquer password (para demonstração)
-    if (user === "kensai" || user === "demo") {
-      currentUser = { username: user };
-      updateUIForUser();
-      toggleModal('loginModal', false);
-      document.getElementById('loginUser').value = '';
-      document.getElementById('loginPass').value = '';
-      showToast(`Bem-vindo de volta, ${user}!`);
-    } else {
-      alert("Credenciais inválidas. Utilize 'kensai' ou 'demo' para teste.");
-    }
-  }
-
-  function signup() {
-    const nome = document.getElementById('signupName').value.trim();
-    const user = document.getElementById('signupUser').value.trim();
-    const email = document.getElementById('signupEmail').value.trim();
-    const pass = document.getElementById('signupPass').value.trim();
-    if (!nome || !user || !email || !pass) {
-      alert("Preencha todos os campos.");
-      return;
-    }
-    if (user === "kensai" || user === "demo") {
-      alert("Nome de usuário já existe. Escolha outro.");
-      return;
-    }
-    // Criar novo utilizador (mock) - armazenamos em betsDB? Podemos criar entrada vazia
-    if (!betsDB[user]) {
-      betsDB[user] = [];
-    }
-    currentUser = { username: user };
-    updateUIForUser();
-    toggleModal('signupModal', false);
-    showToast(`Conta criada com sucesso! Bem-vindo, ${user}`);
-    // Limpar campos
-    document.getElementById('signupName').value = '';
-    document.getElementById('signupUser').value = '';
-    document.getElementById('signupEmail').value = '';
-    document.getElementById('signupPass').value = '';
-  }
-
-  function logout() {
-    currentUser = null;
-    updateUIForUser();
-    showToast("Sessão encerrada.");
-  }
-
-  function toggleModal(modalId, show) {
-    const modal = document.getElementById(modalId);
-    if (show) modal.classList.remove('hidden');
-    else modal.classList.add('hidden');
-  }
-
-  function showToast(msg) {
-    // Toast simples
-    let toast = document.createElement('div');
-    toast.innerText = msg;
-    toast.className = 'fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-green-600 text-black px-6 py-3 rounded-xl font-bold z-50 glass';
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2500);
-  }
-
-  function scrollToSection(elementId) {
-    const el = document.getElementById(elementId);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // Inicializar
-  updateUIForUser();
-
-  // Fechar modais ao clicar fora (opcional)
-  window.onclick = function(e) {
-    const loginModal = document.getElementById('loginModal');
-    const signupModal = document.getElementById('signupModal');
-    if (e.target === loginModal) toggleModal('loginModal', false);
-    if (e.target === signupModal) toggleModal('signupModal', false);
-  };
-</script>
-</body>
-</html>
+<div class="flex max-w-container-max mx-auto px-gutter py-xl gap-lg">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 pt-20 h-full z-40 bg-surface-container-low/90 backdrop-blur-2xl border-r border-white/10 h-screen w-64 hidden lg:flex flex-col">
+<div class="px-md py-lg border-b border-white/5">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-10 h-10 bg-primary-container/20 rounded border border-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">person</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary-container">OPERATOR_01</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Tier: Diamond</div>
+</div>
+</div>
+</div>
+<nav class="flex-grow py-md">
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-sm text-label-sm">Markets</span>
+</a>
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">casino</span>
+<span class="font-label-sm text-label-sm">Casino</span>
+</a>
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<div class="mt-xl px-md">
+<button class="w-full bg-secondary-container text-on-secondary-container py-xs rounded flex items-center justify-center gap-xs font-label-sm text-label-sm uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">chat</span>
+                        Live Chat
+                    </button>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas: Deposit Terminal -->
+<main class="flex-grow lg:ml-64 flex flex-col gap-lg">
+<!-- Step Visualization -->
+<div class="grid grid-cols-3 gap-md">
+<div class="glass-panel p-md rounded-xl flex items-center gap-sm opacity-50 border-white/5">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface">1</div>
+<span class="font-headline-md text-label-sm uppercase opacity-70">Select Method</span>
+</div>
+<div class="glass-panel p-md rounded-xl flex items-center gap-sm border-primary-container/40 step-active">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary-container font-bold">2</div>
+<span class="font-headline-md text-label-sm uppercase text-primary-container">Enter Details</span>
+</div>
+<div class="glass-panel p-md rounded-xl flex items-center gap-sm opacity-50 border-white/5">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface">3</div>
+<span class="font-headline-md text-label-sm uppercase opacity-70">Confirm PIN</span>
+</div>
+</div>
+<!-- Terminal Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg items-start">
+<!-- Input Terminal Section -->
+<div class="xl:col-span-8 flex flex-col gap-lg">
+<div class="glass-panel p-lg rounded-xl flex flex-col gap-md relative overflow-hidden">
+<div class="absolute top-0 right-0 p-sm opacity-20 font-data-mono text-xs">TERMINAL_REF: TZ-4410</div>
+<h2 class="font-headline-lg text-headline-lg text-primary-container flex items-center gap-sm">
+<span class="material-symbols-outlined">account_balance</span>
+                            DEPOSIT TERMINAL
+                        </h2>
+<!-- Wallet Selection -->
+<div class="grid grid-cols-2 gap-md mt-md">
+<button class="glass-panel p-md rounded-xl border-2 border-primary-container bg-primary-container/5 flex flex-col items-center gap-xs hover:bg-primary-container/10 transition-all group">
+<div class="w-16 h-16 bg-[#e21a22] rounded-lg flex items-center justify-center overflow-hidden mb-xs">
+<img alt="M-Pesa Logo" class="w-12 h-12 object-contain" data-alt="A clean, minimalist 3D rendering of the M-Pesa logo with its signature red and white circular motif. The logo is displayed on a sleek, matte black surface with soft neon red light reflections on the edges, capturing a modern fintech aesthetic. The lighting is focused and professional, highlighting the logo's curved elements in a high-tech digital banking environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC79c9zrOpdiOCYa3-A-QDxVr82oc60AiNCc5rY-sCZ4OLG6h1kzBRDWhhlEFErCSWeN4Kg9YkchE1J2FMYfb_OpSZ9sI3rXy5rHpRPwRmqPgGInFJTv65aisFTRMNw0Wh4P9p1jCdEU3RcZdnmutMZ9YBr8uEsJLJOhbat-glqj8S0Fy6oR3CwUzfeg4MpKgW48-UE_2KPTXe_X4NEXz9yb_ZQOs3H3-G5iiFp-I_g6TuXNWTWC6eGIJtMHzdiw1oweXFN3oj8m1PL"/>
+</div>
+<span class="font-headline-md text-label-sm text-primary-container">M-PESA MOZ</span>
+<span class="text-[10px] text-on-surface-variant font-data-mono">FEE: 0.00%</span>
+</button>
+<button class="glass-panel p-md rounded-xl border-white/5 flex flex-col items-center gap-xs hover:bg-white/5 transition-all opacity-60">
+<div class="w-16 h-16 bg-[#f48120] rounded-lg flex items-center justify-center overflow-hidden mb-xs">
+<img alt="e-Mola Logo" class="w-12 h-12 object-contain grayscale opacity-70" data-alt="A futuristic presentation of the e-Mola wallet logo characterized by its orange and white color scheme. The visual is set against a dark, tech-inspired background with subtle purple and orange neon gradients bleeding into the shadows. The composition is clean and focused, utilizing glassmorphism effects to give the logo a floating, high-tech financial terminal feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeXGKcktHcydLnSkt98P9uNkPouePKb91wx8dkQw85Sborvz_X7eDyKlcbZNH92jf31mR2KVRgjWTsTZ1QtlnUQluJLnziI08NME0GW8EvY1eF5TZ4LKYO0rV-gWFnjBIPPSk03OxyU5bsBcHYfp9VQXEA_oKyCSgkFwLhNAyHJ7xxI1O4FisZJDrjF00i3Q0boZgboCXvAh3qGvIty0bznD60qZHcaZ9dgy7Zw5uLTAESF7A8yiPUYTfxT723T0Zv_MOESDeegwm2"/>
+</div>
+<span class="font-headline-md text-label-sm">E-MOLA MOZ</span>
+<span class="text-[10px] text-on-surface-variant font-data-mono">FEE: 0.00%</span>
+</button>
+</div>
+<!-- Amount & Phone Input -->
+<div class="flex flex-col gap-md mt-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase px-xs">Amount (MT)</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary-container text-headline-lg font-headline-lg py-md px-md outline-none transition-all placeholder-on-surface-variant/30 text-primary-container" type="text" value="500.00"/>
+<div class="absolute right-md top-1/2 -translate-y-1/2 font-data-mono text-on-surface-variant opacity-50">MT</div>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase px-xs">Mobile Number (+258)</label>
+<div class="relative group">
+<div class="absolute left-md top-1/2 -translate-y-1/2 font-data-mono text-primary-container">+258</div>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary-container text-headline-md font-headline-md py-md pl-24 pr-md outline-none transition-all placeholder-on-surface-variant/20" placeholder="8X XXX XXXX" type="tel"/>
+</div>
+</div>
+</div>
+<!-- Terminal Keypad -->
+<div class="grid grid-cols-3 gap-xs mt-md">
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">1</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">2</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">3</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">4</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">5</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">6</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">7</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">8</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">9</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">CLEAR</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">0</button>
+<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">
+<span class="material-symbols-outlined">backspace</span>
+</button>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-md rounded font-headline-md text-headline-md mt-lg shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
+                            INITIALIZE TRANSACTION
+                        </button>
+</div>
+<!-- Metadata Footer -->
+<div class="flex justify-between px-md py-xs glass-panel border-white/5 rounded-lg">
+<div class="flex items-center gap-xs font-data-mono text-[10px] text-on-surface-variant">
+<span class="w-2 h-2 bg-primary-container rounded-full animate-pulse"></span>
+                            NODE: MZ-EST-01 (ACTIVE)
+                        </div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">
+                            SECURE SSL/ECC-256 ENCRYPTED
+                        </div>
+</div>
+</div>
+<!-- Transaction Status Overlay -->
+<div class="xl:col-span-4 flex flex-col gap-lg h-full">
+<div class="glass-panel p-lg rounded-xl flex flex-col gap-md sticky top-24 border-secondary-container/30">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-label-sm text-secondary tracking-widest uppercase">Live Status</span>
+<span class="material-symbols-outlined text-secondary animate-spin">sync</span>
+</div>
+<div class="py-xl flex flex-col items-center gap-md border-y border-white/5">
+<div class="relative">
+<div class="w-20 h-20 border-2 border-secondary rounded-full flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-secondary text-4xl">fingerprint</span>
+</div>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full border-2 border-background"></div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-body-lg text-secondary">Awaiting Confirmation</h3>
+<p class="text-sm text-on-surface-variant px-md mt-xs">Check your phone. A push PIN request has been sent via M-Pesa protocol.</p>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-xs font-data-mono">
+<span class="text-on-surface-variant opacity-60">TRANSACTION ID</span>
+<span>TXN_9921_88XC_00</span>
+</div>
+<div class="flex justify-between text-xs font-data-mono">
+<span class="text-on-surface-variant opacity-60">PROVIDER</span>
+<span class="text-primary-container">VODACOM MZ</span>
+</div>
+<div class="flex justify-between text-xs font-data-mono">
+<span class="text-on-surface-variant opacity-60">FEE</span>
+<span>0.00 MT</span>
+</div>
+<div class="flex justify-between text-md font-headline-md pt-xs border-t border-white/5 text-primary-container">
+<span>TOTAL</span>
+<span>500.00 MT</span>
+</div>
+</div>
+<div class="mt-md p-md bg-surface-container-highest rounded border border-white/5">
+<p class="text-[10px] text-on-surface-variant leading-relaxed">
+<span class="text-secondary font-bold">INFO:</span> Standard Mozambique mobile money limits apply. If you do not receive the PIN pop-up within 60 seconds, dial <span class="text-white">*150#</span> or check the app history.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-xl px-gutter grid grid-cols-1 md:grid-cols-4 gap-md max-w-container-max mx-auto border-t border-white/5 bg-surface-container-lowest mt-xl">
+<div class="col-span-1 md:col-span-2">
+<div class="font-display-xl text-primary-container mb-sm">CYBER_STAKE</div>
+<p class="font-body-md text-on-surface-variant max-w
