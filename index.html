@@ -1,325 +1,558 @@
 <!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>KENZO PRO | Editor de Alta Qualidade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CYBER_STAKE | Deposit Terminal</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "surface-variant": "#2d3828",
-                      "on-surface-variant": "#baccb0",
-                      "surface-tint": "#2ae500",
-                      "on-primary-fixed-variant": "#095300",
-                      "surface-container-highest": "#2d3828",
-                      "inverse-surface": "#dae6d0",
-                      "inverse-on-surface": "#293324",
-                      "primary-fixed": "#79ff5b",
-                      "tertiary-fixed": "#ffdad6",
-                      "on-secondary-fixed-variant": "#6a00b0",
-                      "surface-container": "#182214",
-                      "on-error-container": "#ffdad6",
-                      "on-tertiary": "#442927",
-                      "on-primary-fixed": "#022100",
-                      "on-primary": "#053900",
-                      "surface-container-lowest": "#071105",
-                      "secondary-fixed-dim": "#dfb7ff",
-                      "on-secondary": "#4b007e",
-                      "primary": "#efffe3",
-                      "surface-container-low": "#141e11",
-                      "secondary": "#dfb7ff",
-                      "on-tertiary-container": "#7a5955",
-                      "on-primary-container": "#107100",
-                      "tertiary-fixed-dim": "#e7bdb8",
-                      "surface-bright": "#323c2d",
-                      "surface": "#0c1609",
-                      "on-tertiary-fixed": "#2c1513",
-                      "on-background": "#dae6d0",
-                      "on-tertiary-fixed-variant": "#5d3f3c",
-                      "outline": "#85967c",
-                      "error": "#ffb4ab",
-                      "primary-container": "#39ff14",
-                      "surface-container-high": "#222d1e",
-                      "on-secondary-container": "#f7e6ff",
-                      "tertiary": "#fff8f7",
-                      "secondary-fixed": "#f1daff",
-                      "primary-fixed-dim": "#2ae500",
-                      "on-secondary-fixed": "#2d004f",
-                      "inverse-primary": "#106e00",
-                      "tertiary-container": "#ffd3ce",
-                      "surface-dim": "#0c1609",
-                      "secondary-container": "#9d08ff",
-                      "outline-variant": "#3c4b35",
-                      "on-surface": "#dae6d0",
-                      "on-error": "#690005",
-                      "error-container": "#93000a",
-                      "background": "#0c1609"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "md": "1.5rem",
-                      "lg": "2rem",
-                      "xs": "0.5rem",
-                      "gutter": "1.5rem",
-                      "container-max": "1440px",
-                      "base": "4px",
-                      "xl": "3rem",
-                      "sm": "1rem"
-              },
-              "fontFamily": {
-                      "data-mono": ["Space Mono"],
-                      "headline-lg": ["Orbitron"],
-                      "display-xl": ["Orbitron"],
-                      "headline-md": ["Orbitron"],
-                      "body-md": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "label-sm": ["Inter"]
-              },
-              "fontSize": {
-                      "data-mono": ["14px", {"lineHeight": "1", "fontWeight": "500"}],
-                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
-                      "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}]
-              }
-            },
-          },
+        :root {
+            --bg-dark: #0a0a0a;
+            --panel-bg: #111111;
+            --card-bg: #1c1c1e;
+            --accent: #00e676;
+            --accent-glow: #00e67633;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+            --border-subtle: #2c2c2e;
+            --danger: #ff3b30;
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 16px 48px 16px;
         }
-        .glow-primary {
-            filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.4));
+
+        /* Header com estilo neon */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            width: 100%;
         }
-        .glass-panel {
-            background: rgba(24, 34, 20, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .header h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .step-active {
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+
+        .badge {
+            background: var(--accent-glow);
+            border-radius: 40px;
+            padding: 5px 14px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-block;
+            margin-top: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Container principal */
+        .main-editor {
+            max-width: 1300px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Área da imagem + dropzone */
+        .preview-container {
+            background: var(--panel-bg);
+            border-radius: 28px;
+            padding: 20px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            transition: border 0.2s;
+        }
+
+        .preview-area {
+            background: #0b0b0b;
+            border-radius: 20px;
+            min-height: 460px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: auto;
+            border: 2px dashed #2a2a2a;
+            transition: all 0.2s ease;
+        }
+
+        .preview-area.drag-over {
+            border-color: var(--accent);
+            background: #1a2a1a;
+            box-shadow: inset 0 0 0 2px var(--accent-glow);
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: filter 0.1s ease;
+        }
+
+        #placeholderText {
+            position: absolute;
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+            background: rgba(0,0,0,0.6);
+            padding: 12px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+            font-size: 1rem;
+            z-index: 2;
+        }
+
+        /* Info da imagem */
+        .image-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .image-info span {
+            font-family: monospace;
+            background: #1e1e1e;
+            padding: 4px 10px;
+            border-radius: 40px;
+        }
+
+        /* Painel de filtros (grid responsivo) */
+        .controls-panel {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(2px);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 24px 28px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .filter-group label span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .value-display {
+            background: #2a2a2a;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #2c2c2e;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px var(--accent);
+            transition: 0.1s;
+            border: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        /* Botões principais */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2c2c2e;
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 2px 8px rgba(0,230,118,0.3);
+        }
+
+        .btn-primary:hover {
+            background: #00c464;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,230,118,0.3);
+        }
+
+        .btn-secondary {
+            background: #3d5afe;
+            box-shadow: 0 2px 8px rgba(61,90,254,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #536dfe;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #38383a;
+            border: 1px solid #4a4a4c;
+        }
+
+        .btn-reset:hover {
+            background: #4a4a4c;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* rodapé pequeno */
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5e5e62;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 680px) {
+            .header h1 { font-size: 1.8rem; }
+            .actions .btn { padding: 10px 20px; font-size: 0.8rem; }
+            .filters-grid { gap: 16px; }
         }
     </style>
 </head>
-<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
-<!-- TopNavBar -->
-<header class="bg-surface/80 backdrop-blur-xl border-b border-white/10 docked full-width top-0 sticky z-50 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto py-sm">
-<div class="font-display-xl text-display-xl italic tracking-tighter text-primary-container drop-shadow-[0_0_10px_rgba(57,255,20,0.5)]">CYBER_STAKE</div>
-<nav class="hidden md:flex items-center gap-md">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Sports</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Casino</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Live</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors" href="#">Promos</a>
-</nav>
-<div class="flex items-center gap-sm">
-<button class="p-xs text-on-surface-variant hover:bg-white/5 rounded-full transition-all">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="p-xs text-on-surface-variant hover:bg-white/5 rounded-full transition-all">
-<span class="material-symbols-outlined">account_balance_wallet</span>
-</button>
-<button class="bg-primary-container text-on-primary-container font-headline-md px-md py-xs rounded hover:scale-95 transition-transform">Deposit</button>
+<body>
+
+<div class="header">
+    <h1>⚡ EDITOR KENZO · PRO</h1>
+    <div class="badge">ALTA QUALIDADE · SEM PERDAS</div>
 </div>
+
+<div class="main-editor">
+    <div class="preview-container">
+        <div class="preview-area" id="dropZone">
+            <canvas id="mainCanvas" style="display: block;"></canvas>
+            <div id="placeholderText">📸 Arraste uma foto ou clique em "Abrir Foto"<br>Suporte a qualidade original</div>
+        </div>
+        <div class="image-info" id="imgInfo">
+            <span>📁 Nenhuma imagem carregada</span>
+            <span>✨ Edição em tempo real</span>
+        </div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="filters-grid" id="filtersGrid">
+            <!-- Brilho -->
+            <div class="filter-group">
+                <label><span>💡 Brilho</span><span class="value-display" id="brightnessVal">100%</span></label>
+                <input type="range" id="brightness" min="0" max="200" value="100" step="1">
+            </div>
+            <!-- Contraste -->
+            <div class="filter-group">
+                <label><span>🎛️ Contraste</span><span class="value-display" id="contrastVal">100%</span></label>
+                <input type="range" id="contrast" min="0" max="200" value="100" step="1">
+            </div>
+            <!-- Saturação -->
+            <div class="filter-group">
+                <label><span>🌈 Saturação</span><span class="value-display" id="saturateVal">100%</span></label>
+                <input type="range" id="saturate" min="0" max="200" value="100" step="1">
+            </div>
+            <!-- Sépia -->
+            <div class="filter-group">
+                <label><span>🟫 Sépia (Retro)</span><span class="value-display" id="sepiaVal">0%</span></label>
+                <input type="range" id="sepia" min="0" max="100" value="0" step="1">
+            </div>
+            <!-- Grayscale (extra) -->
+            <div class="filter-group">
+                <label><span>⚫ Grayscale (P&B)</span><span class="value-display" id="grayscaleVal">0%</span></label>
+                <input type="range" id="grayscale" min="0" max="100" value="0" step="1">
+            </div>
+            <!-- Matiz (Hue-rotate) -->
+            <div class="filter-group">
+                <label><span>🎨 Matiz (Hue)</span><span class="value-display" id="hueVal">0°</span></label>
+                <input type="range" id="hueRotate" min="0" max="360" value="0" step="1">
+            </div>
+            <!-- Desfoque -->
+            <div class="filter-group">
+                <label><span>🌀 Desfoque</span><span class="value-display" id="blurVal">0px</span></label>
+                <input type="range" id="blur" min="0" max="12" value="0" step="0.5">
+            </div>
+            <!-- Inverter -->
+            <div class="filter-group">
+                <label><span>🔄 Inverter Cores</span><span class="value-display" id="invertVal">0%</span></label>
+                <input type="range" id="invert" min="0" max="100" value="0" step="1">
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-secondary" id="uploadBtn">📂 Abrir Foto</button>
+        <button class="btn btn-reset" id="resetBtn">⟳ Resetar Filtros</button>
+        <button class="btn btn-primary" id="savePngBtn">💾 Salvar PNG (Sem perdas)</button>
+        <button class="btn btn-primary" id="saveJpgBtn">📸 Salvar JPG (Alta Qualidade)</button>
+    </div>
+    <div class="footer-note">
+        ⚡ Edição não destrutiva | Exporta resolução original | Filtros profissionais
+    </div>
 </div>
-</header>
-<div class="flex max-w-container-max mx-auto px-gutter py-xl gap-lg">
-<!-- SideNavBar -->
-<aside class="fixed left-0 top-0 pt-20 h-full z-40 bg-surface-container-low/90 backdrop-blur-2xl border-r border-white/10 h-screen w-64 hidden lg:flex flex-col">
-<div class="px-md py-lg border-b border-white/5">
-<div class="flex items-center gap-sm mb-xs">
-<div class="w-10 h-10 bg-primary-container/20 rounded border border-primary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-primary-container">person</span>
-</div>
-<div>
-<div class="font-headline-md text-headline-md text-primary-container">OPERATOR_01</div>
-<div class="font-label-sm text-label-sm text-on-surface-variant">Tier: Diamond</div>
-</div>
-</div>
-</div>
-<nav class="flex-grow py-md">
-<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-label-sm text-label-sm">Dashboard</span>
-</a>
-<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">query_stats</span>
-<span class="font-label-sm text-label-sm">Markets</span>
-</a>
-<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">casino</span>
-<span class="font-label-sm text-label-sm">Casino</span>
-</a>
-<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:bg-white/5 hover:translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">receipt_long</span>
-<span class="font-label-sm text-label-sm">History</span>
-</a>
-<div class="mt-xl px-md">
-<button class="w-full bg-secondary-container text-on-secondary-container py-xs rounded flex items-center justify-center gap-xs font-label-sm text-label-sm uppercase tracking-widest">
-<span class="material-symbols-outlined text-sm">chat</span>
-                        Live Chat
-                    </button>
-</div>
-</nav>
-</aside>
-<!-- Main Content Canvas: Deposit Terminal -->
-<main class="flex-grow lg:ml-64 flex flex-col gap-lg">
-<!-- Step Visualization -->
-<div class="grid grid-cols-3 gap-md">
-<div class="glass-panel p-md rounded-xl flex items-center gap-sm opacity-50 border-white/5">
-<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface">1</div>
-<span class="font-headline-md text-label-sm uppercase opacity-70">Select Method</span>
-</div>
-<div class="glass-panel p-md rounded-xl flex items-center gap-sm border-primary-container/40 step-active">
-<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary-container font-bold">2</div>
-<span class="font-headline-md text-label-sm uppercase text-primary-container">Enter Details</span>
-</div>
-<div class="glass-panel p-md rounded-xl flex items-center gap-sm opacity-50 border-white/5">
-<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-on-surface">3</div>
-<span class="font-headline-md text-label-sm uppercase opacity-70">Confirm PIN</span>
-</div>
-</div>
-<!-- Terminal Grid -->
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg items-start">
-<!-- Input Terminal Section -->
-<div class="xl:col-span-8 flex flex-col gap-lg">
-<div class="glass-panel p-lg rounded-xl flex flex-col gap-md relative overflow-hidden">
-<div class="absolute top-0 right-0 p-sm opacity-20 font-data-mono text-xs">TERMINAL_REF: TZ-4410</div>
-<h2 class="font-headline-lg text-headline-lg text-primary-container flex items-center gap-sm">
-<span class="material-symbols-outlined">account_balance</span>
-                            DEPOSIT TERMINAL
-                        </h2>
-<!-- Wallet Selection -->
-<div class="grid grid-cols-2 gap-md mt-md">
-<button class="glass-panel p-md rounded-xl border-2 border-primary-container bg-primary-container/5 flex flex-col items-center gap-xs hover:bg-primary-container/10 transition-all group">
-<div class="w-16 h-16 bg-[#e21a22] rounded-lg flex items-center justify-center overflow-hidden mb-xs">
-<img alt="M-Pesa Logo" class="w-12 h-12 object-contain" data-alt="A clean, minimalist 3D rendering of the M-Pesa logo with its signature red and white circular motif. The logo is displayed on a sleek, matte black surface with soft neon red light reflections on the edges, capturing a modern fintech aesthetic. The lighting is focused and professional, highlighting the logo's curved elements in a high-tech digital banking environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC79c9zrOpdiOCYa3-A-QDxVr82oc60AiNCc5rY-sCZ4OLG6h1kzBRDWhhlEFErCSWeN4Kg9YkchE1J2FMYfb_OpSZ9sI3rXy5rHpRPwRmqPgGInFJTv65aisFTRMNw0Wh4P9p1jCdEU3RcZdnmutMZ9YBr8uEsJLJOhbat-glqj8S0Fy6oR3CwUzfeg4MpKgW48-UE_2KPTXe_X4NEXz9yb_ZQOs3H3-G5iiFp-I_g6TuXNWTWC6eGIJtMHzdiw1oweXFN3oj8m1PL"/>
-</div>
-<span class="font-headline-md text-label-sm text-primary-container">M-PESA MOZ</span>
-<span class="text-[10px] text-on-surface-variant font-data-mono">FEE: 0.00%</span>
-</button>
-<button class="glass-panel p-md rounded-xl border-white/5 flex flex-col items-center gap-xs hover:bg-white/5 transition-all opacity-60">
-<div class="w-16 h-16 bg-[#f48120] rounded-lg flex items-center justify-center overflow-hidden mb-xs">
-<img alt="e-Mola Logo" class="w-12 h-12 object-contain grayscale opacity-70" data-alt="A futuristic presentation of the e-Mola wallet logo characterized by its orange and white color scheme. The visual is set against a dark, tech-inspired background with subtle purple and orange neon gradients bleeding into the shadows. The composition is clean and focused, utilizing glassmorphism effects to give the logo a floating, high-tech financial terminal feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeXGKcktHcydLnSkt98P9uNkPouePKb91wx8dkQw85Sborvz_X7eDyKlcbZNH92jf31mR2KVRgjWTsTZ1QtlnUQluJLnziI08NME0GW8EvY1eF5TZ4LKYO0rV-gWFnjBIPPSk03OxyU5bsBcHYfp9VQXEA_oKyCSgkFwLhNAyHJ7xxI1O4FisZJDrjF00i3Q0boZgboCXvAh3qGvIty0bznD60qZHcaZ9dgy7Zw5uLTAESF7A8yiPUYTfxT723T0Zv_MOESDeegwm2"/>
-</div>
-<span class="font-headline-md text-label-sm">E-MOLA MOZ</span>
-<span class="text-[10px] text-on-surface-variant font-data-mono">FEE: 0.00%</span>
-</button>
-</div>
-<!-- Amount & Phone Input -->
-<div class="flex flex-col gap-md mt-lg">
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase px-xs">Amount (MT)</label>
-<div class="relative group">
-<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary-container text-headline-lg font-headline-lg py-md px-md outline-none transition-all placeholder-on-surface-variant/30 text-primary-container" type="text" value="500.00"/>
-<div class="absolute right-md top-1/2 -translate-y-1/2 font-data-mono text-on-surface-variant opacity-50">MT</div>
-</div>
-</div>
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase px-xs">Mobile Number (+258)</label>
-<div class="relative group">
-<div class="absolute left-md top-1/2 -translate-y-1/2 font-data-mono text-primary-container">+258</div>
-<input class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary-container text-headline-md font-headline-md py-md pl-24 pr-md outline-none transition-all placeholder-on-surface-variant/20" placeholder="8X XXX XXXX" type="tel"/>
-</div>
-</div>
-</div>
-<!-- Terminal Keypad -->
-<div class="grid grid-cols-3 gap-xs mt-md">
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">1</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">2</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">3</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">4</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">5</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">6</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">7</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">8</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">9</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">CLEAR</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">0</button>
-<button class="bg-surface-container-high py-md font-headline-md hover:bg-primary-container/20 transition-all rounded">
-<span class="material-symbols-outlined">backspace</span>
-</button>
-</div>
-<button class="w-full bg-primary-container text-on-primary-container py-md rounded font-headline-md text-headline-md mt-lg shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
-                            INITIALIZE TRANSACTION
-                        </button>
-</div>
-<!-- Metadata Footer -->
-<div class="flex justify-between px-md py-xs glass-panel border-white/5 rounded-lg">
-<div class="flex items-center gap-xs font-data-mono text-[10px] text-on-surface-variant">
-<span class="w-2 h-2 bg-primary-container rounded-full animate-pulse"></span>
-                            NODE: MZ-EST-01 (ACTIVE)
-                        </div>
-<div class="font-data-mono text-[10px] text-on-surface-variant">
-                            SECURE SSL/ECC-256 ENCRYPTED
-                        </div>
-</div>
-</div>
-<!-- Transaction Status Overlay -->
-<div class="xl:col-span-4 flex flex-col gap-lg h-full">
-<div class="glass-panel p-lg rounded-xl flex flex-col gap-md sticky top-24 border-secondary-container/30">
-<div class="flex items-center justify-between">
-<span class="font-headline-md text-label-sm text-secondary tracking-widest uppercase">Live Status</span>
-<span class="material-symbols-outlined text-secondary animate-spin">sync</span>
-</div>
-<div class="py-xl flex flex-col items-center gap-md border-y border-white/5">
-<div class="relative">
-<div class="w-20 h-20 border-2 border-secondary rounded-full flex items-center justify-center animate-pulse">
-<span class="material-symbols-outlined text-secondary text-4xl">fingerprint</span>
-</div>
-<div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full border-2 border-background"></div>
-</div>
-<div class="text-center">
-<h3 class="font-headline-md text-body-lg text-secondary">Awaiting Confirmation</h3>
-<p class="text-sm text-on-surface-variant px-md mt-xs">Check your phone. A push PIN request has been sent via M-Pesa protocol.</p>
-</div>
-</div>
-<div class="space-y-sm">
-<div class="flex justify-between text-xs font-data-mono">
-<span class="text-on-surface-variant opacity-60">TRANSACTION ID</span>
-<span>TXN_9921_88XC_00</span>
-</div>
-<div class="flex justify-between text-xs font-data-mono">
-<span class="text-on-surface-variant opacity-60">PROVIDER</span>
-<span class="text-primary-container">VODACOM MZ</span>
-</div>
-<div class="flex justify-between text-xs font-data-mono">
-<span class="text-on-surface-variant opacity-60">FEE</span>
-<span>0.00 MT</span>
-</div>
-<div class="flex justify-between text-md font-headline-md pt-xs border-t border-white/5 text-primary-container">
-<span>TOTAL</span>
-<span>500.00 MT</span>
-</div>
-</div>
-<div class="mt-md p-md bg-surface-container-highest rounded border border-white/5">
-<p class="text-[10px] text-on-surface-variant leading-relaxed">
-<span class="text-secondary font-bold">INFO:</span> Standard Mozambique mobile money limits apply. If you do not receive the PIN pop-up within 60 seconds, dial <span class="text-white">*150#</span> or check the app history.
-                            </p>
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
-<!-- Footer -->
-<footer class="w-full py-xl px-gutter grid grid-cols-1 md:grid-cols-4 gap-md max-w-container-max mx-auto border-t border-white/5 bg-surface-container-lowest mt-xl">
-<div class="col-span-1 md:col-span-2">
-<div class="font-display-xl text-primary-container mb-sm">CYBER_STAKE</div>
-<p class="font-body-md text-on-surface-variant max-w
+
+<script>
+    (function() {
+        // DOM elements
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const savePngBtn = document.getElementById('savePngBtn');
+        const saveJpgBtn = document.getElementById('saveJpgBtn');
+        const placeholderText = document.getElementById('placeholderText');
+        const imgInfoSpan = document.querySelector('#imgInfo span:first-child');
+
+        // Controles (filtros)
+        const brightnessSlider = document.getElementById('brightness');
+        const contrastSlider = document.getElementById('contrast');
+        const saturateSlider = document.getElementById('saturate');
+        const sepiaSlider = document.getElementById('sepia');
+        const grayscaleSlider = document.getElementById('grayscale');
+        const hueRotateSlider = document.getElementById('hueRotate');
+        const blurSlider = document.getElementById('blur');
+        const invertSlider = document.getElementById('invert');
+
+        // Value displays
+        const brightnessVal = document.getElementById('brightnessVal');
+        const contrastVal = document.getElementById('contrastVal');
+        const saturateVal = document.getElementById('saturateVal');
+        const sepiaVal = document.getElementById('sepiaVal');
+        const grayscaleVal = document.getElementById('grayscaleVal');
+        const hueVal = document.getElementById('hueVal');
+        const blurVal = document.getElementById('blurVal');
+        const invertVal = document.getElementById('invertVal');
+
+        // Estado da imagem original (alta resolução)
+        let originalImage = null;       // Image object
+        let imageLoaded = false;
+
+        // Atualiza valores textuais
+        function updateValueDisplays() {
+            brightnessVal.innerText = brightnessSlider.value + '%';
+            contrastVal.innerText = contrastSlider.value + '%';
+            saturateVal.innerText = saturateSlider.value + '%';
+            sepiaVal.innerText = sepiaSlider.value + '%';
+            grayscaleVal.innerText = grayscaleSlider.value + '%';
+            hueVal.innerText = hueRotateSlider.value + '°';
+            blurVal.innerText = parseFloat(blurSlider.value).toFixed(1) + 'px';
+            invertVal.innerText = invertSlider.value + '%';
+        }
+
+        // Constrói a string de filtros CSS para o canvas (alta qualidade)
+        function buildFilterString() {
+            const brightness = brightnessSlider.value + '%';
+            const contrast = contrastSlider.value + '%';
+            const saturate = saturateSlider.value + '%';
+            const sepia = sepiaSlider.value + '%';
+            const grayscale = grayscaleSlider.value + '%';
+            const hueRotate = hueRotateSlider.value + 'deg';
+            const blur = blurSlider.value + 'px';
+            const invert = invertSlider.value + '%';
+
+            // Ordem clássica de filtros para efeito profissional (brilho/contraste/saturação primeiro, depois efeitos retro)
+            return `brightness(${brightness}) contrast(${contrast}) saturate(${saturate}) sepia(${sepia}) grayscale(${grayscale}) hue-rotate(${hueRotate}) blur(${blur}) invert(${invert})`;
+        }
+
+        // Aplica os filtros e redesenha com alta qualidade mantendo dimensões originais
+        function applyFilters() {
+            if (!originalImage || !imageLoaded) return;
+
+            // Atualiza displays antes de renderizar
+            updateValueDisplays();
+
+            // Garantir que canvas tenha as dimensões exatas da imagem original (sem perda de resolução)
+            if (canvas.width !== originalImage.width || canvas.height !== originalImage.height) {
+                canvas.width = originalImage.width;
+                canvas.height = originalImage.height;
+            }
+
+            // Aplica o filtro combinado
+            ctx.filter = buildFilterString();
+            
+            // Limpa e desenha com smoothing de alta qualidade (mesmo sem scale, boa prática)
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';   // Para futuros redimensionamentos, garantia extra
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+        }
+
+        // Carrega a imagem a partir de um arquivo (blob/file)
+        function loadImageFromFile(file) {
+            if (!file || !file.type.match('image.*')) {
+                alert("⚠️ Por favor, selecione um arquivo de imagem válido (JPEG, PNG, WebP, etc).");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = new Image();
+                img.onload = function() {
+                    // Armazena imagem de alta resolução
+                    originalImage = img;
+                    imageLoaded = true;
+                    
+                    // Define canvas na resolução nativa da imagem (garantia de fidelidade)
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Oculta placeholder
+                    placeholderText.style.display = 'none';
+                    
+                    // Atualiza info da imagem com dimensões reais
+                    imgInfoSpan.innerHTML = `📸 ${img.width} x ${img.height} px · ${Math.round((img.width*img.height*4)/1048576 * 10)/10} MP`;
+                    
+                    // Aplica os filtros atuais imediatamente
+                    applyFilters();
+                };
+                img.onerror = () => {
+                    alert("Erro ao carregar a imagem. Tente um formato diferente.");
+                };
+                img.src = evt.target.result;
+            };
+            reader.onerror = () => alert("Erro na leitura do arquivo.");
+            reader.readAsDataURL(file);
+        }
+
+        // Resetar todos os filtros para valores padrão (alta qualidade natural)
+        function resetFilters() {
+            brightnessSlider.value = '100';
+            contrastSlider.value = '100';
+            saturateSlider.value = '100';
+            sepiaSlider.value = '0';
+            grayscaleSlider.value = '0';
+            hueRotateSlider.value = '0';
+            blurSlider.value = '0';
+            invertSlider.value = '0';
+            
+            updateValueDisplays();
+            if (imageLoaded && originalImage) {
+                applyFilters();
+            }
+        }
+
+        // Eventos dos sliders
+        const sliders = [brightnessSlider, contrastSlider, saturateSlider, sepiaSlider, grayscaleSlider, hueRotateSlider, blurSlider, invertSlider];
+        sliders.forEach(slider => {
+            slider.addEventListener('input', () => {
+                if (imageLoaded) applyFilters();
+                else updateValueDisplays();
+            });
+        });
+
+        // Upload via botão
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                loadImageFromFile(e.target.files[0]);
+            }
+            fileInput.value = ''; // permite recarregar o mesmo arquivo depois
+        });
+
+        // Reset manual
+        resetBtn.addEventListener('click', resetFilters);
+
+        // Salvar PNG (sem compressão / alta qualidade)
+        function saveAsPNG() {
+            if (!imageLoaded || !originalImage) {
+                alert("📌 Carregue uma imagem primeiro para salvar.");
+                return;
+            }
+            try {
+                // Força a renderização final com filtros ativos antes de exportar
+                applyFilters();
+                // Usa formato PNG nativo (lossless) com resolução máxima
+                const pngData = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = 'KENZO_EDIT_ALTA_QUALIDADE.png';
+         
